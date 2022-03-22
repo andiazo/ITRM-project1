@@ -1,38 +1,20 @@
-import React from 'react';
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { connect } from 'react-redux';
-import { postsList } from '../store/actions';
+import { postsListAction } from "../store/slices/postsReducer";
 
+export const Home = () => {
+  let posts = useSelector((state) => state.posts);
+  let dispatch = useDispatch();
 
-class Home extends React.Component {
-
-    constructor(props){
-        super(props);
-    }
-
-    getPostsHandler() {
-        this.props.dispatch(postsList())
-    }
-
-    render() {
-        var pL = [];
-        this.props.posts?.forEach((post) => {
-            pL.push(
-                <div key={post.id}>{post.title}</div>
-            );
-        });
-        return(
-            <>
-                <button onClick={() => this.getPostsHandler()}>
-                    Obtener publicaciones
-                </button>
-                { pL? pL:'' }
-            </>
-        )
-    }
-}
-
-const mapStateToProps = (state, props) => {
-    return state.posts
-}
-
-export default connect(mapStateToProps)(Home);
+  return (
+    <>
+      <button onClick={() => dispatch(postsListAction())}>
+        Obtener publicaciones
+      </button>
+      {posts.map((post) => (
+        <div key={post.id}>{post.title}</div>
+      ))}
+    </>
+  );
+};
