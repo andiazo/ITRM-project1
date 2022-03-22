@@ -14,21 +14,15 @@ class Home extends React.Component {
 
     getPostsHandler() {
         this.props.dispatch(postsList())
-        this.setState({
-            posts: this.props.posts.postsList
-        })
-        // this.state.posts = this.props.posts.postsList
-        console.log(this.state.posts)
     }
 
     render() {
         var pL = [];
-        this.state.posts.forEach((post) => {
+        this.props.posts?.forEach((post) => {
             pL.push(
                 <div key={post.id}>{post.title}</div>
           );
         });
-        console.log(this.props.posts.postsList)
         return(
             <>
                 <button onClick={() => this.getPostsHandler()}>
