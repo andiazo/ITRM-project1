@@ -1,9 +1,16 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { postsList } from './test'
+import { postsList, selectPosts } from './postsSlice'
+
+const posts2 = [
+    {id:1,title:'Post 1'},
+    {id:2,title:'Post 2'},
+    {id:3,title:'Post 3'},
+]
 
 export default function Home() {
-    const posts = useSelector((state) => state.posts)
+    const { posts } = useSelector(selectPosts)
+    console.log(useSelector(selectPosts))
     const dispatch = useDispatch()
 
     var pL = [];
@@ -14,11 +21,11 @@ export default function Home() {
         );
     });
 
-    console.log(dispatch(postsList()))
+    //console.log(dispatch(postsList(posts2)))
 
     return(
         <>
-            <button onClick={() => dispatch(postsList())}>
+            <button onClick={() => {console.log(posts);dispatch(postsList(posts2))}}>
                 Obtener publicaciones
             </button>
             { pL? pL:'' }
